@@ -9,3 +9,14 @@ X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Comp
 X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\obj\Debug\TINY_Compiler.exe
 X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\obj\Debug\TINY_Compiler.pdb
 X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\obj\Debug\TINY_Compiler.csprojAssemblyReference.cache
+C:\Users\Menna\Source\Repos\TINY-Compiler\TINY_Compiler\TINY_Compiler\bin\Debug\TINY_Compiler.exe.config
+C:\Users\Menna\Source\Repos\TINY-Compiler\TINY_Compiler\TINY_Compiler\bin\Debug\TINY_Compiler.exe
+C:\Users\Menna\Source\Repos\TINY-Compiler\TINY_Compiler\TINY_Compiler\bin\Debug\TINY_Compiler.pdb
+C:\Users\Menna\Source\Repos\TINY-Compiler\TINY_Compiler\TINY_Compiler\obj\Debug\TINY_Compiler.csprojAssemblyReference.cache
+C:\Users\Menna\Source\Repos\TINY-Compiler\TINY_Compiler\TINY_Compiler\obj\Debug\TINY_Compiler.Form1.resources
+C:\Users\Menna\Source\Repos\TINY-Compiler\TINY_Compiler\TINY_Compiler\obj\Debug\TINY_Compiler.Form2.resources
+C:\Users\Menna\Source\Repos\TINY-Compiler\TINY_Compiler\TINY_Compiler\obj\Debug\TINY_Compiler.Properties.Resources.resources
+C:\Users\Menna\Source\Repos\TINY-Compiler\TINY_Compiler\TINY_Compiler\obj\Debug\TINY_Compiler.csproj.GenerateResource.cache
+C:\Users\Menna\Source\Repos\TINY-Compiler\TINY_Compiler\TINY_Compiler\obj\Debug\TINY_Compiler.csproj.CoreCompileInputs.cache
+C:\Users\Menna\Source\Repos\TINY-Compiler\TINY_Compiler\TINY_Compiler\obj\Debug\TINY_Compiler.exe
+C:\Users\Menna\Source\Repos\TINY-Compiler\TINY_Compiler\TINY_Compiler\obj\Debug\TINY_Compiler.pdb
