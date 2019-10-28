@@ -1,0 +1,11 @@
+X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\bin\Debug\TINY_Compiler.exe.config
+X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\bin\Debug\TINY_Compiler.exe
+X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\bin\Debug\TINY_Compiler.pdb
+X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\obj\Debug\TINY_Compiler.Form1.resources
+X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\obj\Debug\TINY_Compiler.Form2.resources
+X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\obj\Debug\TINY_Compiler.Properties.Resources.resources
+X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\obj\Debug\TINY_Compiler.csproj.GenerateResource.cache
+X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\obj\Debug\TINY_Compiler.csproj.CoreCompileInputs.cache
+X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\obj\Debug\TINY_Compiler.exe
+X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\obj\Debug\TINY_Compiler.pdb
+X:\College\Y4\T1\Compilers\Labs\Lab 3 - Scanning Part 2\TINY_Compiler\JASON_Compiler\obj\Debug\TINY_Compiler.csprojAssemblyReference.cache
