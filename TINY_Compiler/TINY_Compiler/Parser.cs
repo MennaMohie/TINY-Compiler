@@ -141,83 +141,277 @@ namespace TINY_Compiler
 
         Node Statements()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            if (CheckForNull(Token_Class.Identifier) || CheckForNull(Token_Class.String) ||
+                CheckForNull(Token_Class.Integer) || CheckForNull(Token_Class.Float)
+                || CheckForNull(Token_Class.If) || CheckForNull(Token_Class.Repeat)
+                || CheckForNull(Token_Class.Read) || CheckForNull(Token_Class.Write)
+                || CheckForNull(Token_Class.Comment))
+            {
+                Node statements = new Node("statements");
+                statements.Children.Add(Statement());
+                return statements;
+            }
+            return null;
         }
         Node Statement()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node statement = new Node("statement");
+            if (CheckForNull(Token_Class.If) || CheckForNull(Token_Class.Repeat)
+                || CheckForNull(Token_Class.Comment))
+            {
+                statement.Children.Add(No_Semicolon());
+            }
+            else
+                statement.Children.Add(Ends_With_Semicolon());
+            return statement;
+        }
+        Node Ends_With_Semicolon()
+        {
+            Node ends_with_semicolon = new Node("ends_with_semicolon");
+            if (CheckForNull(Token_Class.Identifier))
+            {
+                ends_with_semicolon.Children.Add(Assignment_Statement());
+            }
+            else if (CheckForNull(Token_Class.Integer) || CheckForNull(Token_Class.Float) || CheckForNull(Token_Class.String))
+            {
+                ends_with_semicolon.Children.Add(Declaration_Statement());
+            }
+            else if (CheckForNull(Token_Class.Write))
+            {
+                ends_with_semicolon.Children.Add(Write_Statement());
+            }
+            else if (CheckForNull(Token_Class.Read))
+            {
+                ends_with_semicolon.Children.Add(Read_Statement());
+            }
+            else if (CheckForNull(Token_Class.Identifier) && CheckForNull(Token_Class.LParanthesis))
+            {
+                ends_with_semicolon.Children.Add(Function_Call());
+            }
+            return ends_with_semicolon;
+        }
+        Node No_Semicolon()
+        {
+            Node no_semicolon = new Node("ends_with_semicolon");
+            if (CheckForNull(Token_Class.If))
+            {
+                no_semicolon.Children.Add(If_Statement());
+            }
+            else if (CheckForNull(Token_Class.Repeat))
+            {
+                no_semicolon.Children.Add(Repeat_Statement());
+            }
+            else
+            {
+                no_semicolon.Children.Add(Match(Token_Class.Comment));
+            }
+            return no_semicolon;
         }
         Node Return_Statement()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node return_statement = new Node("return_statement");
+            return_statement.Children.Add(Match(Token_Class.Return));
+            return_statement.Children.Add(Expression());
+            return_statement.Children.Add(Match(Token_Class.Semicolon));
+            return return_statement;
         }
         Node Function_Call()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node function_call = new Node("function_call");
+            function_call.Children.Add(Match(Token_Class.Identifier));
+            function_call.Children.Add(Parameters_Part());
+            return function_call;
+        }
+        Node Parameters_Part()
+        {
+            Node parameters_part = new Node("parameters_part");
+            parameters_part.Children.Add(Match(Token_Class.LParanthesis));
+            parameters_part.Children.Add(Identifiers());
+            parameters_part.Children.Add(Match(Token_Class.RParanthesis));
+            return parameters_part;
         }
         Node Identifiers()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node identifiers = new Node("identifiers");
+            if (CheckForNull(Token_Class.Identifier))
+            {
+                identifiers.Children.Add(Match(Token_Class.Identifier));
+                identifiers.Children.Add(Identifiers_());
+                return identifiers;
+            }
+            return null;
         }
         Node Identifiers_()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node identifiers_ = new Node("identifiers_");
+            if (CheckForNull(Token_Class.Identifier))
+            {
+                identifiers_.Children.Add(Match(Token_Class.Comma));
+                identifiers_.Children.Add(Match(Token_Class.Identifier));
+                return identifiers_;
+            }
+            return null;
         }
         Node Repeat_Statement()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node repeat_statement = new Node("repeat_statement");
+            repeat_statement.Children.Add(Match(Token_Class.Repeat));
+            repeat_statement.Children.Add(Statements());
+            repeat_statement.Children.Add(Match(Token_Class.Until));
+            repeat_statement.Children.Add(Condition_Statement());
+            return repeat_statement;
         }
         Node Condition_Statement()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node condition_statement = new Node("condition_statement");
+            condition_statement.Children.Add(Condition());
+            condition_statement.Children.Add(Condition_Statement_());
+            return condition_statement;
         }
         Node Condition_Statement_()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            if (CheckForNull(Token_Class.Or) || CheckForNull(Token_Class.And))
+            {
+                Node condition_statement_ = new Node("condition_statement_");
+                condition_statement_.Children.Add(Boolean_Operator());
+                condition_statement_.Children.Add(Condition_Statement());
+                return condition_statement_;
+            }
+            return null;
         }
         Node Condition()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node condition = new Node("condition");
+            condition.Children.Add(Match(Token_Class.Identifier));
+            condition.Children.Add(Condition_Operator());
+            condition.Children.Add(Term());
+            return condition;
         }
         Node Term()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node term = new Node("term");
+            if (CheckForNull(Token_Class.Identifier))
+            {
+                term.Children.Add(Match(Token_Class.Identifier));
+                term.Children.Add(Function_Call());
+            }
+            else if (CheckForNull(Token_Class.Integer))
+                term.Children.Add(Match(Token_Class.Integer));
+            else
+                term.Children.Add(Match(Token_Class.Float));
+            return term;
+        }
+        Node Term_Factoring()
+        {
+            if (CheckForNull(Token_Class.LParanthesis))
+            {
+                Node term_factoring = new Node("term_factoring");
+                term_factoring.Children.Add(Parameters_Part());
+                return term_factoring;
+            }
+            else
+                return null;
+        }
+        Node Boolean_Operator()
+        {
+            Node boolean_operator = new Node("boolean_operator");
+            if (CheckForNull(Token_Class.Or))
+            {
+                boolean_operator.Children.Add(Match(Token_Class.Or));
+                boolean_operator.Children.Add(Match(Token_Class.Or));
+            }
+            else
+            {
+                boolean_operator.Children.Add(Match(Token_Class.And));
+                boolean_operator.Children.Add(Match(Token_Class.And));
+            }
+            return boolean_operator;
+        }
+        Node Condition_Operator()
+        {
+            Node condition_operator = new Node("condition_operator");
+            if (CheckForNull(Token_Class.EqualOp))
+                condition_operator.Children.Add(Match(Token_Class.EqualOp));
+            if (CheckForNull(Token_Class.GreaterThanOp))
+                condition_operator.Children.Add(Match(Token_Class.GreaterThanOp));
+            if (CheckForNull(Token_Class.LessThanOp))
+                condition_operator.Children.Add(Match(Token_Class.LessThanOp));
+            else
+                condition_operator.Children.Add(Match(Token_Class.NotEqualOp));
+            return condition_operator;
         }
         Node Write_Statement()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node write_statement = new Node("write_statement");
+            write_statement.Children.Add(Match(Token_Class.Write));
+            write_statement.Children.Add(Next());
+            return write_statement;
         }
         Node Next()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node next = new Node("next");
+            if (CheckForNull(Token_Class.Endl))
+                next.Children.Add(Match(Token_Class.Endl));
+            else
+                next.Children.Add(Expression());
+            return next;
         }
         Node Read_Statement()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node read_statement = new Node("read_statement");
+            read_statement.Children.Add(Match(Token_Class.Read));
+            read_statement.Children.Add(Match(Token_Class.Identifier));
+            return read_statement;
         }
         Node Datatype()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node datatype = new Node("datatype");
+            if (CheckForNull(Token_Class.Integer))
+                datatype.Children.Add(Match(Token_Class.Integer));
+            if (CheckForNull(Token_Class.Float))
+                datatype.Children.Add(Match(Token_Class.Float));
+            if (CheckForNull(Token_Class.String))
+                datatype.Children.Add(Match(Token_Class.String));
+            return datatype;
         }
         Node Declaration_Statement()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            Node seclaration_statement = new Node("seclaration_statement");
+            seclaration_statement.Children.Add(Datatype());
+            seclaration_statement.Children.Add(Declaration_Details());
+            return seclaration_statement;
+        }
+        Node Declaration_Details()
+        {
+            Node declaration_details = new Node("declaration_details");
+            declaration_details.Children.Add(Declaration_Detail());
+            declaration_details.Children.Add(Declaration_Details_());
+            return declaration_details;
+        }
+        Node Declaration_Details_()
+        {
+            if (CheckForNull(Token_Class.Comma))
+            {
+                Node declaration_details_ = new Node("declaration_details_");
+                declaration_details_.Children.Add(Match(Token_Class.Comma));
+                declaration_details_.Children.Add(Declaration_Details());
+                return declaration_details_;
+            }
+            return null;
+        }
+        Node Declaration_Detail()
+        {
+            Node declaration_detail = new Node("declaration_detail");
+            declaration_detail.Children.Add(Match(Token_Class.Identifier));
+            declaration_detail.Children.Add(Other_Detail());
+            return declaration_detail;
+        }
+        Node Other_Detail()
+        {
+            Node other_detail = new Node("other_detail");
+            other_detail.Children.Add(Match(Token_Class.Assignment));
+            other_detail.Children.Add(Expression());
+            return other_detail;
         }
 
         Node Assignment_Statement()
