@@ -437,7 +437,7 @@ namespace TINY_Compiler
             Node expression = new Node("expression");
             if (CheckForNull(Token_Class.StringLiteral))
                 expression.Children.Add(Match(Token_Class.StringLiteral));
-            else if (CheckForNull(Token_Class.LBrace))
+            else if (CheckForNull(Token_Class.LParanthesis))
                 expression.Children.Add(Equation());
             else
                 expression.Children.Add(Term());
@@ -505,9 +505,9 @@ namespace TINY_Compiler
             Node factor = new Node("factor");
             if (CheckForNull(Token_Class.LBrace))
             {
-                factor.Children.Add(Match(Token_Class.LBrace));
+                factor.Children.Add(Match(Token_Class.LParanthesis));
                 factor.Children.Add(Equation());
-                factor.Children.Add(Match(Token_Class.RBrace));
+                factor.Children.Add(Match(Token_Class.RParanthesis));
             }
             else
             {
