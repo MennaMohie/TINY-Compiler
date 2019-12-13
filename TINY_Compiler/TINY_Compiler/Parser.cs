@@ -294,7 +294,7 @@ namespace TINY_Compiler
                 term.Children.Add(Function_Call());
             }
             else if (CheckForNull(Token_Class.Constant))
-                term.Children.Add(Match(Token_Class.Integer));
+                term.Children.Add(Match(Token_Class.Constant));
             return term;
         }
         Node Term_Factoring()
