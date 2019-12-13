@@ -166,80 +166,162 @@ namespace TINY_Compiler
 
         Node Assignment_Statement()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            //Assignment_Statement ➔ identifier:= Expression
+            Node assignmentStatement = new Node("assignmentStatement");
+            assignmentStatement.Children.Add(Match(Token_Class.Identifier));
+            assignmentStatement.Children.Add(Match(Token_Class.Assignment));
+            assignmentStatement.Children.Add(Expression());
+            return assignmentStatement;
         }
         Node Expression()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            //Expression ➔ String | Term | Equation
+            Node expression = new Node("expression");
+            if (CheckForNull(Token_Class.StringLiteral))
+                expression.Children.Add(Match(Token_Class.StringLiteral));
+            else if (CheckForNull(Token_Class.LBrace))
+                expression.Children.Add(Equation());
+            else
+                expression.Children.Add(Term());
+            return expression;
         }
         Node Equation()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            //Equation ➔ TermEq Equation_
+            Node equation = new Node("equation");
+            equation.Children.Add(TermEq());
+            equation.Children.Add(Equation_());
+            return equation;
         }
         Node Equation_()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            //Equation_ ➔ AddTerm Equation_ | ε
+            Node equation_ = new Node("equation_");
+            if (CheckForNull(Token_Class.PlusOp) || CheckForNull(Token_Class.MinusOp))
+            {
+                equation_.Children.Add(AddTerm());
+                equation_.Children.Add(Equation_());
+                return equation_;
+            }
+            return null;
         }
         Node AddTerm()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            //AddTerm ➔ AddOperation TermEq
+            Node addTerm = new Node("addTerm");
+            addTerm.Children.Add(AddOperation());
+            addTerm.Children.Add(TermEq());
+            return addTerm;
         }
         Node TermEq()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            //TermEq ➔ Factor TermEq_ 
+            Node termEq = new Node("termEq");
+            termEq.Children.Add(Factor());
+            termEq.Children.Add(TermEq_());
+            return termEq;
         }
         Node TermEq_()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            //TermEq_ ➔ MulTerm TermEq_ | ε
+            Node termEq_ = new Node("termEq_");
+            if(CheckForNull(Token_Class.MultiplyOp) || CheckForNull(Token_Class.DivideOp))
+            {
+                termEq_.Children.Add(MulTerm());
+                termEq_.Children.Add(TermEq_());
+                return termEq_;
+            }
+            return null;
         }
         Node MulTerm()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            //MulTerm ➔ MulOperation Factor
+            Node mulTerm = new Node("mulTerm");
+            mulTerm.Children.Add(MulOperation());
+            mulTerm.Children.Add(Factor());
+            return mulTerm;
         }
         Node Factor()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            //Factor ➔ (Equation) | Term
+            Node factor = new Node("factor");
+            if (CheckForNull(Token_Class.LBrace))
+            {
+                factor.Children.Add(Match(Token_Class.LBrace));
+                factor.Children.Add(Equation());
+                factor.Children.Add(Match(Token_Class.RBrace));
+            }
+            else
+            {
+                factor.Children.Add(Term());
+            }
+            return factor;
         }
         Node AddOperation()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            //AddOperation ➔ + | -
+            Node addOperation = new Node("addOperation");
+            if (CheckForNull(Token_Class.PlusOp))
+                addOperation.Children.Add(Match(Token_Class.PlusOp));
+            else
+                addOperation.Children.Add(Match(Token_Class.MinusOp));
+            return addOperation;
         }
         Node MulOperation()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            //MulOperation ➔ * | /
+            Node mulOperation = new Node("mulOperation");
+            if (CheckForNull(Token_Class.MultiplyOp))
+                mulOperation.Children.Add(Match(Token_Class.MultiplyOp));
+            else
+                mulOperation.Children.Add(Match(Token_Class.DivideOp));
+            return mulOperation;
         }
         Node If_Statement()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            //If_Statement ➔ if Condition_Statement then Statements ElseClause
+            Node ifStatement = new Node("ifStatement");
+            ifStatement.Children.Add(Match(Token_Class.If));
+            ifStatement.Children.Add(Condition_Statement());
+            ifStatement.Children.Add(Match(Token_Class.Then));
+            ifStatement.Children.Add(Statements());
+            ifStatement.Children.Add(ElseClause());
+            return ifStatement;
         }
         Node ElseClause()
         {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
-        }
-        Node Else_If_Statment()
-        {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
-        }
-        Node Else_Statment()
-        {
-            Node place_holder = new Node("place_holder");
-            return place_holder;
+            //ElseClause ➔ Else_If_Statment | Else_Statment | end
+            Node elseClause = new Node("elseClause");
+            if(CheckForNull(Token_Class.Elseif))
+                elseClause.Children.Add(Else_If_Statment());
+            else if(CheckForNull(Token_Class.Else))
+                elseClause.Children.Add(Else_Statment()); 
+            else
+                elseClause.Children.Add(Match(Token_Class.End));
+            return elseClause;
         }
 
+        Node Else_If_Statment()
+        {
+            //Else_If_Statment ➔ elseif Condition_Statement then Statements ElseClause
+            Node elseIfStatment = new Node("elseIfStatment");
+            elseIfStatment.Children.Add(Match(Token_Class.Elseif));
+            elseIfStatment.Children.Add(Condition_Statement());
+            elseIfStatment.Children.Add(Match(Token_Class.Then));
+            elseIfStatment.Children.Add(Statements());
+            elseIfStatment.Children.Add(ElseClause());
+            return elseIfStatment;
+        }
+
+        Node Else_Statment()
+        {
+            //Else_Statment ➔ else Statements end
+            Node elseStatment = new Node("elseStatment");
+            elseStatment.Children.Add(Match(Token_Class.Else));
+            elseStatment.Children.Add(Statements());
+            elseStatment.Children.Add(Match(Token_Class.End));
+            return elseStatment;
+        }
 
         public bool CheckForNull(Token_Class token)
         {
