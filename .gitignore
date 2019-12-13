@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/TINY_Compiler/.vs/TINY_Compiler/v16/Server/sqlite3/db.lock
+/TINY_Compiler/.vs/TINY_Compiler/v16/Server/sqlite3/storage.ide-shm
+/TINY_Compiler/.vs/TINY_Compiler/v16/Server/sqlite3/storage.ide
+/TINY_Compiler/.vs/TINY_Compiler/v16/Server/sqlite3/storage.ide-wal
+/TINY_Compiler/.vs/TINY_Compiler/v16/.suo
+*.docx
