@@ -590,8 +590,8 @@ namespace TINY_Compiler
 
         public Node Match(Token_Class ExpectedToken)
         {
-            
-            if (ExpectedToken == TokenStream[InputPointer].token_type)
+
+            if (InputPointer < TokenStream.Count && ExpectedToken == TokenStream[InputPointer].token_type)
             {
                 InputPointer++;
                 Node newNode = new Node(ExpectedToken.ToString());
