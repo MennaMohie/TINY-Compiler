@@ -583,7 +583,7 @@ namespace TINY_Compiler
 
         public bool CheckForNull(Token_Class token)
         {
-            if (TokenStream[InputPointer].token_type == token)
+            if (InputPointer < TokenStream.Count && TokenStream[InputPointer].token_type == token)
                 return true;
             return false;
         }
