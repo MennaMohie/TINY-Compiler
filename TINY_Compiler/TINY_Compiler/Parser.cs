@@ -503,7 +503,7 @@ namespace TINY_Compiler
         {
             //Factor ➔ (Equation) | Term
             Node factor = new Node("factor");
-            if (CheckForNull(Token_Class.LBrace))
+            if (CheckForNull(Token_Class.LParanthesis))
             {
                 factor.Children.Add(Match(Token_Class.LParanthesis));
                 factor.Children.Add(Equation());
