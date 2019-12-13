@@ -17,7 +17,6 @@ namespace TINY_Compiler
         public static void Start_Compiling(string SourceCode) //character by character
         {
             //Scanner
- 
             Tiny_Scanner.StartScanning(SourceCode);
             //Parser
             Tiny_Parser.StartParsing(TokenStream);

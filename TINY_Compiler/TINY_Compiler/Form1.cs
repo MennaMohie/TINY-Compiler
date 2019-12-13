@@ -21,6 +21,7 @@ namespace TINY_Compiler
         {
             txt_Errors.Text = "";
             dataGridView1.Rows.Clear();
+            treeView1.Nodes.Clear();
             //string Code=textBox1.Text.ToLower();
             string Code = textBox1.Text;
             TINY_Compiler.Start_Compiling(Code);

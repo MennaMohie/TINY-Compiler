@@ -186,7 +186,7 @@ namespace TINY_Compiler
         Node No_Semicolon()
         {
             // NoSemicolon ➔ Repeat_Statement | If_Statement | Comment_Statement
-            Node no_semicolon = new Node("ends_with_semicolon");
+            Node no_semicolon = new Node("No_Semicolon");
             if (CheckForNull(Token_Class.If))
                 no_semicolon.Children.Add(If_Statement());
             else if (CheckForNull(Token_Class.Repeat))
@@ -291,7 +291,7 @@ namespace TINY_Compiler
             if (CheckForNull(Token_Class.Identifier))
             {
                 term.Children.Add(Match(Token_Class.Identifier));
-                term.Children.Add(Function_Call());
+                term.Children.Add(Term_Factoring());
             }
             else if (CheckForNull(Token_Class.Constant))
                 term.Children.Add(Match(Token_Class.Constant));
@@ -440,8 +440,36 @@ namespace TINY_Compiler
             else if (CheckForNull(Token_Class.LParanthesis))
                 expression.Children.Add(Equation());
             else
+            {
                 expression.Children.Add(Term());
+                expression.Children.Add(ExtraExpression());
+            }
             return expression;
+        }
+        Node ExtraExpression()
+        {
+            if (CheckForNull(Token_Class.PlusOp) || CheckForNull(Token_Class.MinusOp) || 
+                CheckForNull(Token_Class.MultiplyOp) || CheckForNull(Token_Class.DivideOp))
+            {
+                Node extraExpression = new Node("ExtraExpression");
+                extraExpression.Children.Add(Arithmatic_Operator());
+                extraExpression.Children.Add(Equation());
+                return extraExpression;
+            }
+            return null;
+        }
+        Node Arithmatic_Operator()
+        {
+            Node arithmaticOperator = new Node("Arithmatic_Operator");
+            if (CheckForNull(Token_Class.PlusOp))
+                arithmaticOperator.Children.Add(Match(Token_Class.PlusOp));
+            if (CheckForNull(Token_Class.MinusOp))
+                arithmaticOperator.Children.Add(Match(Token_Class.MinusOp));
+            if (CheckForNull(Token_Class.DivideOp))
+                arithmaticOperator.Children.Add(Match(Token_Class.DivideOp));
+            if (CheckForNull(Token_Class.MultiplyOp))
+                arithmaticOperator.Children.Add(Match(Token_Class.MultiplyOp));
+            return arithmaticOperator;
         }
         Node Equation()
         {
