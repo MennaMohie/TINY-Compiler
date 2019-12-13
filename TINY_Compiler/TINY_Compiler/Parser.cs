@@ -10,7 +10,7 @@ namespace TINY_Compiler
     public class Node
     {
         public List<Node> Children = new List<Node>();
-        
+
         public string Name; //Esm el-Node
         public Node(string N)
         {
@@ -21,7 +21,7 @@ namespace TINY_Compiler
     {
         int InputPointer = 0; // Boy2af 3la el-next token, works on TokenStream List
         List<Token> TokenStream;
-        public  Node root;
+        public Node root;
         Boolean mainFunctionIsPresent = false;
         public Node StartParsing(List<Token> TokenStream)
         {
@@ -483,7 +483,7 @@ namespace TINY_Compiler
         {
             //TermEq_ ➔ MulTerm TermEq_ | ε
             Node termEq_ = new Node("termEq_");
-            if(CheckForNull(Token_Class.MultiplyOp) || CheckForNull(Token_Class.DivideOp))
+            if (CheckForNull(Token_Class.MultiplyOp) || CheckForNull(Token_Class.DivideOp))
             {
                 termEq_.Children.Add(MulTerm());
                 termEq_.Children.Add(TermEq_());
@@ -550,10 +550,10 @@ namespace TINY_Compiler
         {
             //ElseClause ➔ Else_If_Statment | Else_Statment | end
             Node elseClause = new Node("elseClause");
-            if(CheckForNull(Token_Class.Elseif))
+            if (CheckForNull(Token_Class.Elseif))
                 elseClause.Children.Add(Else_If_Statment());
-            else if(CheckForNull(Token_Class.Else))
-                elseClause.Children.Add(Else_Statment()); 
+            else if (CheckForNull(Token_Class.Else))
+                elseClause.Children.Add(Else_Statment());
             else
                 elseClause.Children.Add(Match(Token_Class.End));
             return elseClause;
@@ -597,16 +597,23 @@ namespace TINY_Compiler
                 Node newNode = new Node(ExpectedToken.ToString());
 
                 return newNode;
-                    
+
             }
 
             else
             {
-                Errors.Error_List.Add("Parsing Error: Expected " 
-                    + ExpectedToken.ToString() + " and " + 
-                    TokenStream[InputPointer].token_type.ToString() + 
-                    " found\r\n");
-                InputPointer++;
+                if (InputPointer < TokenStream.Count)
+                {
+                    Errors.Error_List.Add("Parsing Error: Expected "
+                        + ExpectedToken.ToString() + " and " +
+                        TokenStream[InputPointer].token_type.ToString() +
+                        " found\r\n");
+
+                    InputPointer++;
+                }else
+                    Errors.Error_List.Add("Parsing Error: Expected "
+                        + ExpectedToken.ToString() + " and nothing was found\r\n");
+
                 return null;
             }
         }
