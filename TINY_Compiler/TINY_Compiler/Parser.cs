@@ -489,11 +489,26 @@ namespace TINY_Compiler
             {
                 Node extraExpression = new Node("ExtraExpression");
                 extraExpression.Children.Add(Arithmatic_Operator());
-                extraExpression.Children.Add(Expression());
+                extraExpression.Children.Add(Equation());
                 return extraExpression;
             }
             return null;
         }
+        /*
+        Node Expression_()
+        {
+            Node expression_ = new Node("Expression_");
+            if (CheckForNull(Token_Class.LParanthesis))
+            {
+                expression_.Children.Add(Match(Token_Class.LParanthesis));
+                expression_.Children.Add(Equation());
+                expression_.Children.Add(Match(Token_Class.RParanthesis));
+            }
+            else
+                expression_.Children.Add(Equation());
+            return expression_;
+        }
+        */
         Node Arithmatic_Operator()
         {
             Node arithmaticOperator = new Node("Arithmatic_Operator");
