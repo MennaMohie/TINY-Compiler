@@ -256,6 +256,12 @@ namespace TINY_Compiler
                 identifiers.Children.Add(Identifiers_());
                 return identifiers;
             }
+            else if (CheckForNull(Token_Class.Constant))
+            {
+                identifiers.Children.Add(Match(Token_Class.Constant));
+                identifiers.Children.Add(Identifiers_());
+                return identifiers;
+            }
             return null;
         }
         Node Identifiers_()
@@ -340,11 +346,9 @@ namespace TINY_Compiler
             if (CheckForNull(Token_Class.Or))
             {
                 boolean_operator.Children.Add(Match(Token_Class.Or));
-                boolean_operator.Children.Add(Match(Token_Class.Or));
             }
             else
             {
-                boolean_operator.Children.Add(Match(Token_Class.And));
                 boolean_operator.Children.Add(Match(Token_Class.And));
             }
             return boolean_operator;
